@@ -73,6 +73,62 @@ type View struct {
 	Mask rune
 }
 
+func (v *View) SetFrame(f bool) {
+	v.Frame = f
+}
+
+func (v *View) GetHighlight() bool {
+	return v.Highlight
+}
+
+func (v *View) SetMask(m rune) {
+	v.Mask = m
+}
+
+func (v *View) GetMask() rune {
+	return v.Mask
+}
+
+func (v *View) GetWrap() bool {
+	return v.Wrap
+}
+
+func (v *View) SetWrap(b bool) {
+	v.Wrap = b
+}
+
+func (v *View) GetAutoscroll() bool {
+	return v.Autoscroll
+}
+
+func (v *View) SetAutoscroll(b bool) {
+	v.Autoscroll = b
+}
+
+func (v *View) GetOverwrite() bool {
+	return v.Overwrite
+}
+
+func (v *View) SetOverwrite(o bool) {
+	v.Overwrite = o
+}
+
+func (v *View) SetEditable(e bool) {
+	v.Editable = e
+}
+
+func (v *View) SetHighlight(h bool) {
+	v.Highlight = h
+}
+
+func (v *View) SetTitle(t string) {
+	v.Title = t
+}
+
+func (v *View) SetEditor(e Editor) {
+	v.Editor = e
+}
+
 type viewLine struct {
 	linesX, linesY int // coordinates relative to v.lines
 	line           []cell
@@ -95,7 +151,7 @@ func (l lineType) String() string {
 }
 
 // newView returns a new View object.
-func newView(name string, x0, y0, x1, y1 int, mode OutputMode) *View {
+func newView(name string, x0, y0, x1, y1 int, mode OutputMode) Viewer {
 	v := &View{
 		name:    name,
 		x0:      x0,
@@ -476,4 +532,52 @@ func (v *View) Word(x, y int) (string, error) {
 // and 0.
 func indexFunc(r rune) bool {
 	return r == ' ' || r == 0
+}
+
+func (v *View) Invalidate() {
+	v.tainted = true
+}
+
+func (v *View) HasFrame() bool {
+	return v.Frame
+}
+
+func (v *View) GetTitle() string {
+	return v.Title
+}
+
+func (v *View) ClearRunes() {
+	v.clearRunes()
+}
+
+func (v *View) Draw() error {
+	return v.draw()
+}
+
+func (v *View) GetEditor() Editor {
+	return v.Editor
+}
+
+func (v *View) IsEditable() bool {
+	return v.Editable
+}
+
+func (v *View) GetBounds() (x0, y0, x1, y1 int) {
+	return v.x0, v.x1, v.y0, v.y1
+}
+
+func (v *View) SetBounds(x0, y0, x1, y1 int) {
+	v.x0 = x0
+	v.x1 = x1
+	v.y0 = y0
+	v.y1 = y1
+}
+
+func (v *View) SetBgFgColor(bg Attribute, fg Attribute) {
+	v.BgColor = bg
+	v.FgColor = fg
+}
+func (v *View) SetSelBgFgColor(bg Attribute, fg Attribute) {
+	v.SelBgColor = bg
+	v.SelFgColor = fg
 }
