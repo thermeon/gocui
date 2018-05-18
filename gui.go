@@ -201,9 +201,7 @@ func (g *Gui) SetView(name string, x0, y0, x1, y1 int) (Viewer, error) {
 
 	v := newView(name, x0, y0, x1, y1, g.outputMode)
 	v.SetBgFgColor(g.BgColor, g.FgColor)
-	//v.BgColor, v.FgColor = g.BgColor, g.FgColor
 	v.SetSelBgFgColor(g.SelBgColor, g.SelFgColor)
-	//v.SelBgColor, v.SelFgColor = g.SelBgColor, g.SelFgColor
 	g.views = append(g.views, v)
 	return v, ErrUnknownView
 }
