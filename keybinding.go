@@ -12,11 +12,11 @@ type keybinding struct {
 	key      Key
 	ch       rune
 	mod      Modifier
-	handler  func(*Gui, *View) error
+	handler  func(Guier, Viewer) error
 }
 
 // newKeybinding returns a new Keybinding object.
-func newKeybinding(viewname string, key Key, ch rune, mod Modifier, handler func(*Gui, *View) error) (kb *keybinding) {
+func newKeybinding(viewname string, key Key, ch rune, mod Modifier, handler func(Guier, Viewer) error) (kb *keybinding) {
 	kb = &keybinding{
 		viewName: viewname,
 		key:      key,
@@ -33,11 +33,11 @@ func (kb *keybinding) matchKeypress(key Key, ch rune, mod Modifier) bool {
 }
 
 // matchView returns if the keybinding matches the current view.
-func (kb *keybinding) matchView(v *View) bool {
+func (kb *keybinding) matchView(v Viewer) bool {
 	if kb.viewName == "" {
 		return true
 	}
-	return v != nil && kb.viewName == v.name
+	return v != nil && kb.viewName == v.Name()
 }
 
 // Key represents special keys or keys combinations.
