@@ -563,7 +563,7 @@ func (v *View) IsEditable() bool {
 }
 
 func (v *View) GetBounds() (x0, y0, x1, y1 int) {
-	return v.x0, v.x1, v.y0, v.y1
+	return v.x0, v.y0, v.x1, v.y1
 }
 
 func (v *View) SetBounds(x0, y0, x1, y1 int) {

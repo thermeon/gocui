@@ -194,7 +194,7 @@ func (g *Gui) SetView(name string, x0, y0, x1, y1 int) (Viewer, error) {
 	}
 
 	if v, err := g.View(name); err == nil {
-		v.SetBounds(x0, x1, y0, y1)
+		v.SetBounds(x0, y0, x1, y1)
 		v.Invalidate()
 		return v, nil
 	}
@@ -252,7 +252,7 @@ func (g *Gui) ViewByPosition(x, y int) (Viewer, error) {
 	// traverse views in reverse order checking top views first
 	for i := len(g.views); i > 0; i-- {
 		v := g.views[i-1]
-		x0, x1, y0, y1 := v.GetBounds()
+		x0, y0, x1, y1 := v.GetBounds()
 		if x > x0 && x < x1 && y > y0 && y < y1 {
 			return v, nil
 		}
@@ -265,9 +265,9 @@ func (g *Gui) ViewByPosition(x, y int) (Viewer, error) {
 func (g *Gui) ViewPosition(name string) (x0, y0, x1, y1 int, err error) {
 	for _, v := range g.views {
 		if v.Name() == name {
-			x0, x1, y0, y1 := v.GetBounds()
+			x0, y0, x1, y1 := v.GetBounds()
 
-			return x0, x1, y0, y1, nil
+			return x0, y0, x1, y1, nil
 		}
 	}
 	return 0, 0, 0, 0, ErrUnknownView
@@ -532,7 +532,7 @@ func (g *Gui) drawFrameEdges(v Viewer, fgColor, bgColor Attribute) error {
 		runeH, runeV = '-', '|'
 	}
 
-	x0, x1, y0, y1 := v.GetBounds()
+	x0, y0, x1, y1 := v.GetBounds()
 
 	for x := x0 + 1; x < x1 && x < g.maxX; x++ {
 		if x < 0 {
@@ -574,7 +574,7 @@ func (g *Gui) drawFrameCorners(v Viewer, fgColor, bgColor Attribute) error {
 		runeTL, runeTR, runeBL, runeBR = '+', '+', '+', '+'
 	}
 
-	x0, x1, y0, y1 := v.GetBounds()
+	x0, y0, x1, y1 := v.GetBounds()
 
 	corners := []struct {
 		x, y int
@@ -594,7 +594,7 @@ func (g *Gui) drawFrameCorners(v Viewer, fgColor, bgColor Attribute) error {
 // drawTitle draws the title of the view.
 func (g *Gui) drawTitle(v Viewer, fgColor, bgColor Attribute) error {
 
-	x0, x1, y0, _ := v.GetBounds()
+	x0, y0, x1, _ := v.GetBounds()
 
 	if y0 < 0 || y0 >= g.maxY {
 		return nil

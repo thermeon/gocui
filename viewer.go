@@ -36,8 +36,8 @@ type Viewer interface {
 	SetEditor(e Editor)
 	IsEditable() bool
 	SetEditable(e bool)
-	GetBounds() (x0, x1, y0, y1 int)
-	SetBounds(x0, x1, y0, y1 int)
+	GetBounds() (x0, y0, x1, y1 int)
+	SetBounds(x0, y0, x1, y1 int)
 	SetBgFgColor(bg Attribute, fg Attribute)
 	SetSelBgFgColor(bg Attribute, fg Attribute)
 	SetHighlight(h bool)
