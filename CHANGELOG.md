@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+## [0.5.2] - 2018-06-14
+### Changed
+- Corrected coordinate order in cursor
+
 ## [0.5.1] - 2018-06-07
 ### Changed
 - Corrected coordinate order in interfaces
