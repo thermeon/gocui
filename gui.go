@@ -620,7 +620,7 @@ func (g *Gui) draw(v Viewer) error {
 		if curview := g.currentView; curview != nil {
 			vMaxX, vMaxY := curview.Size()
 			cx, cy := curview.Cursor()
-			x0, _, y0, _ := curview.GetBounds()
+			x0, y0, _, _ := curview.GetBounds()
 			if cx < 0 {
 				cx = 0
 			} else if cx >= vMaxX {
